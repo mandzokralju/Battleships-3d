@@ -7,7 +7,7 @@ public class CameraView : MonoBehaviour {
     public float speedH = 2.0f;
     public float speedV = 2.0f;
 
-    private float horizontal = 180.0f;
+    private float horizontal = 0.0f;
     private float vertical = 0.0f;
 
     private void Update()
