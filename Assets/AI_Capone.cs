@@ -8,7 +8,7 @@ public class AI_Capone : MonoBehaviour {
 	public GameObject fractured;
 
 	void Start () {
-		Invoke ("Destruction", 3);
+		Invoke ("Destruction", 2);
 	}
 	
 	void FixedUpdate () {
@@ -21,9 +21,18 @@ public class AI_Capone : MonoBehaviour {
 			transform.position.y + 2,
 			transform.position.z),
 			transform.rotation);
-		
-		explosion.Play;
+
+        explosion.Play();
 		Instantiate (fractured, transform.position, transform.rotation);
-		Destroy ();
+        Collider[] colliders = Physics.OverlapSphere(transform.position, 50);
+        foreach(var nearbyObjects in colliders)
+        {
+            Rigidbody rb = nearbyObjects.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.AddExplosionForce(700, transform.position, 50);
+            }
+        }
+		Destroy(gameObject);
 	}
 }
