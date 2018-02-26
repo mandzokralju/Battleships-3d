@@ -5,11 +5,12 @@ using UnityEngine;
 public class MissileControl : MonoBehaviour {
 
 	void Start () {
-        
+        transform.rotation = Quaternion.identity;
+        transform.rotation = Quaternion.Euler(90, 0, 0);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        transform.position += transform.up * Time.deltaTime * 5;
+        transform.position -= transform.forward * Time.deltaTime * 5;
     }
 }

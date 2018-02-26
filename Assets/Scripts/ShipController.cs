@@ -42,6 +42,6 @@ public class ShipController : MonoBehaviour {
 
     void LaunchMissile()
     {
-        Instantiate(CruiseMissile, GameObject.Find("Silo1").transform.position, Quaternion.Euler(90,0,0));
+        Instantiate(CruiseMissile, GameObject.Find("Silo1").transform.position, Quaternion.Euler(0,0,0));
     }
 }
