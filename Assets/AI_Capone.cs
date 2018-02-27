@@ -16,23 +16,17 @@ public class AI_Capone : MonoBehaviour {
 	}
 
 	void Destruction(){
-		explosion.transform.SetPositionAndRotation (new Vector3(
-			transform.position.x,
-			transform.position.y + 2,
-			transform.position.z),
-			transform.rotation);
+		Vector3 explosionPoz = transform.position;
+		explosion.transform.position = explosionPoz;
+		explosion.Stop ();
+		explosion.Play ();
+		Collider[] colliders = Physics.OverlapSphere (explosionPoz, Constants.explosionRadius);
 
-        explosion.Play();
-		Instantiate (fractured, transform.position, transform.rotation);
-        Collider[] colliders = Physics.OverlapSphere(transform.position, 50);
-        foreach(var nearbyObjects in colliders)
-        {
-            Rigidbody rb = nearbyObjects.GetComponent<Rigidbody>();
-            if (rb != null)
-            {
-                rb.AddExplosionForce(700, transform.position, 50);
-            }
-        }
-		Destroy(gameObject);
+		foreach (Collider hit in colliders) {
+			Rigidbody rb = hit.GetComponent<Rigidbody> ();
+			if (rb != null) {
+				rb.AddExplosionForce (20, explosionPoz, Constants.explosionRadius, 3.0f);
+			}
+		}
 	}
 }
