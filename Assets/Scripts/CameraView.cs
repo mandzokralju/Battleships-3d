@@ -4,22 +4,27 @@ using UnityEngine;
 
 public class CameraView : MonoBehaviour {
 
-    public float speedH = 2.0f;
-    public float speedV = 2.0f;
+    public GameObject target;
+    public float rotateSpeed = 5;
+    Vector3 offset;
 
     private float horizontal = 0.0f;
     private float vertical = 0.0f;
 
-    private void Update()
+    void Start()
     {
-        horizontal += speedH * Input.GetAxis("Mouse X");
-        vertical -= speedV * Input.GetAxis("Mouse Y");
+        offset = target.transform.position - transform.position;
+    }
 
-        transform.eulerAngles = new Vector3(vertical, horizontal, 0.0f);
+    void LateUpdate()
+    {
+        float horizontal = Input.GetAxis("Mouse X") * rotateSpeed;
+        //target.transform.Rotate(0, horizontal, 0);
 
-        if (Input.GetAxis("Mouse ScrollWheel") > 0)
-            GetComponent<Camera>().fieldOfView--;
-        if (Input.GetAxis("Mouse ScrollWheel") < 0)
-            GetComponent<Camera>().fieldOfView++;
+        float desiredAngle = target.transform.eulerAngles.y;
+        Quaternion rotation = Quaternion.Euler(0, desiredAngle, 0);
+        transform.position = target.transform.position - (rotation * offset);
+
+        transform.LookAt(target.transform);
     }
 }
