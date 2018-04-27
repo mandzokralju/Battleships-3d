@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShipController : MonoBehaviour {
+public class ShipController : Ship {
 
     public GameObject CruiseMissile;
     public GameObject CannonX;
@@ -48,12 +48,7 @@ public class ShipController : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            LaunchMissile();
+            
         }
-    }
-
-    void LaunchMissile()
-    {
-        Instantiate(CruiseMissile, GameObject.Find("Silo1").transform.position, Quaternion.Euler(0,0,0));
     }
 }
